@@ -1,7 +1,3 @@
-kube-prometheus-stack:
-  crds:
-    enabled: false
-
 # Default values for prom-stack.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
