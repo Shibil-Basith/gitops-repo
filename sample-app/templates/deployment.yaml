@@ -44,6 +44,9 @@ spec:
             - name: http
               containerPort: {{ .Values.service.targetPort }}
               protocol: TCP
+          env:
+            - name: DATABASE_URL
+              value: "postgresql://user:pass@db-service:5432/dbname"
           {{- with .Values.livenessProbe }}
           livenessProbe:
             {{- toYaml . | nindent 12 }}
