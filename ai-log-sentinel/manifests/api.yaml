@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: api
-        image: shibilbasithcp/sentinel-api:latest
+        image: shibilbasithcp/sentinel-api:v1
         ports:
         - containerPort: 8000
         env:

@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: ingest
-        image: shibilbasithcp/sentinel-ingest:latest
+        image: shibilbasithcp/sentinel-ingest:v1
         env:
         - name: REDIS_HOST
           value: "redis"
