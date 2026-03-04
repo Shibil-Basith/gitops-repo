@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ai-log-sentinel-stack
+  namespace: argocd
+spec:
+  project: default
+  source:
+    # Replace this with your actual GitHub repository URL
+    repoURL: https://github.com/Shibil-Basith/gitops-repo.git
+    targetRevision: HEAD
+    # This must match the path where your YAML files are located
+    path: ai-log-sentinel/manifests
+  destination:
+    server: https://kubernetes.default.svc
+    # Deploying to your existing 'app' namespace
+    namespace: app
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true

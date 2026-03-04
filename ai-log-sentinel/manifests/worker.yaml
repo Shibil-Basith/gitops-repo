@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: worker
-        image: shibilbasithcp/sentinel-worker:latest
+        image: shibilbasithcp/sentinel-worker:v1
         env:
         - name: REDIS_HOST
           value: "redis"
