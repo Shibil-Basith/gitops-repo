@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sentinel-worker
+spec:
+  replicas: 1 # You can increase this to 3 later via GitOps to scale
+  selector:
+    matchLabels:
+      app: worker
+  template:
+    metadata:
+      labels:
+        app: worker
+    spec:
+      containers:
+      - name: worker
+        image: shibilbasithcp/sentinel-worker:latest
+        env:
+        - name: REDIS_HOST
+          value: "redis"
+        - name: DATABASE_URL
+          value: "postgresql://admin:password123@db:5432/logs_db"
