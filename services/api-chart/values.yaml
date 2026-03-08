@@ -1,0 +1,8 @@
+image:
+  repository: tiangolo/uvicorn-gunicorn-fastapi
+  tag: latest
+
+service:
+  type: NodePort
+  port: 8000
+  nodePort: 30002
