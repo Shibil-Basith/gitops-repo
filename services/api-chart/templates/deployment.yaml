@@ -17,3 +17,7 @@ spec:
         image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
         ports:
         - containerPort: 8000
+        # Add this section to force the Tiangolo image to use 8000
+        env:
+        - name: PORT
+          value: "8000"
