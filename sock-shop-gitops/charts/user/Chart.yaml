@@ -1,0 +1,10 @@
+apiVersion: v2
+name: user
+description: Sock Shop User Service - Go
+type: application
+version: 0.1.0
+appVersion: "0.4.7"
+keywords:
+  - sock-shop
+maintainers:
+  - name: platform-team

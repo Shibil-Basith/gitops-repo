@@ -1,0 +1,42 @@
+replicaCount: 1
+
+image:
+  repository: mongo
+  tag: "3.4"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 27017
+  targetPort: 27017
+
+args:
+  - --bind_ip
+  - 0.0.0.0
+
+resources:
+  limits:
+    cpu: 200m
+    memory: 500Mi
+  requests:
+    cpu: 100m
+    memory: 200Mi
+
+securityContext:
+  capabilities:
+    drop:
+      - ALL
+    add:
+      - CHOWN
+      - SETGID
+      - SETUID
+
+persistence:
+  enabled: false
+  storageClass: ""
+  accessMode: ReadWriteOnce
+  size: 5Gi
+
+nodeSelector: {}
+tolerations: []
+affinity: {}

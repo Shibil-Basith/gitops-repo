@@ -1,0 +1,10 @@
+apiVersion: v2
+name: queue-master
+description: Sock Shop Queue Master - Java Spring
+type: application
+version: 0.1.0
+appVersion: "0.3.1"
+keywords:
+  - sock-shop
+maintainers:
+  - name: platform-team

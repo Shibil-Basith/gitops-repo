@@ -1,0 +1,10 @@
+apiVersion: v2
+name: orders-db
+description: Sock Shop Orders Database - MongoDB
+type: application
+version: 0.1.0
+appVersion: "0.3.0"
+keywords:
+  - sock-shop
+maintainers:
+  - name: platform-team

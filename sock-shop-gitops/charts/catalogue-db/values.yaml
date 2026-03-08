@@ -1,0 +1,51 @@
+replicaCount: 1
+
+image:
+  repository: weaveworksdemos/catalogue-db
+  tag: "0.3.0"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 3306
+  targetPort: 3306
+
+env:
+  - name: MYSQL_ROOT_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: catalogue-db-secret
+        key: root-password
+  - name: MYSQL_DATABASE
+    value: socksdb
+  - name: MYSQL_ALLOW_EMPTY_PASSWORD
+    value: "false"
+
+resources:
+  limits:
+    cpu: 300m
+    memory: 1000Mi
+  requests:
+    cpu: 100m
+    memory: 300Mi
+
+securityContext:
+  capabilities:
+    drop:
+      - ALL
+    add:
+      - NET_BIND_SERVICE
+
+persistence:
+  enabled: false
+  storageClass: ""
+  accessMode: ReadWriteOnce
+  size: 1Gi
+
+secret:
+  create: true
+  rootPassword: "fake_password"   # Override via --set or sealed secrets in production
+
+nodeSelector: {}
+tolerations: []
+affinity: {}

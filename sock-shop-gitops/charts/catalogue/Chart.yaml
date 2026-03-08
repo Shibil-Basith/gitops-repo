@@ -1,0 +1,10 @@
+apiVersion: v2
+name: catalogue
+description: Sock Shop Catalogue Service - Go REST API
+type: application
+version: 0.1.0
+appVersion: "0.3.5"
+keywords:
+  - sock-shop
+maintainers:
+  - name: platform-team

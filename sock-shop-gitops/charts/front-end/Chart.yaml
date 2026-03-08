@@ -1,0 +1,13 @@
+apiVersion: v2
+name: front-end
+description: Sock Shop Front-End Service - Node.js web UI
+type: application
+version: 0.1.0
+appVersion: "0.3.12"
+keywords:
+  - sock-shop
+  - frontend
+  - nodejs
+maintainers:
+  - name: platform-team
+home: https://github.com/microservices-demo/front-end
