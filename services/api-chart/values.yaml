@@ -1,6 +1,0 @@
-image:
-  repository: tiangolo/uvicorn-gunicorn-fastapi
-  tag: "python3.11-2024-11-02"  # Using the tag from your screenshot
-
-service:
-  nodePort: 30002
