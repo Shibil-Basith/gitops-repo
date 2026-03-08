@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "payment.fullname" . | default (basename $dir) }}
+  name: payment
   labels:
-    {{- include "payment.labels" . | nindent 4 | default "app: sock-shop" }}
+    app: payment
 spec:
-  replicas: {{ .Values.replicaCount | default 1 }}
+  replicas: 1
   selector:
     matchLabels:
-      app: {{ basename $dir }}
+      app: payment
   template:
     metadata:
       labels:
-        app: {{ basename $dir }}
+        app: payment
     spec:
       containers:
-        - name: {{ basename $dir }}
+        - name: payment
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           ports:
             - containerPort: {{ .Values.service.targetPort }}

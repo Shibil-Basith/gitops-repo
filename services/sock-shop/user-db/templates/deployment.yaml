@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "user-db.fullname" . | default (basename $dir) }}
+  name: user-db
   labels:
-    {{- include "user-db.labels" . | nindent 4 | default "app: sock-shop" }}
+    app: user-db
 spec:
-  replicas: {{ .Values.replicaCount | default 1 }}
+  replicas: 1
   selector:
     matchLabels:
-      app: {{ basename $dir }}
+      app: user-db
   template:
     metadata:
       labels:
-        app: {{ basename $dir }}
+        app: user-db
     spec:
       containers:
-        - name: {{ basename $dir }}
+        - name: user-db
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           ports:
             - containerPort: {{ .Values.service.targetPort }}

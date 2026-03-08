@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "front-end.fullname" . | default (basename $dir) }}
+  name: front-end
   labels:
-    {{- include "front-end.labels" . | nindent 4 | default "app: sock-shop" }}
+    app: front-end
 spec:
-  replicas: {{ .Values.replicaCount | default 1 }}
+  replicas: 1
   selector:
     matchLabels:
-      app: {{ basename $dir }}
+      app: front-end
   template:
     metadata:
       labels:
-        app: {{ basename $dir }}
+        app: front-end
     spec:
       containers:
-        - name: {{ basename $dir }}
+        - name: front-end
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           ports:
             - containerPort: {{ .Values.service.targetPort }}

@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "rabbitmq.fullname" . | default (basename $dir) }}
+  name: rabbitmq
   labels:
-    {{- include "rabbitmq.labels" . | nindent 4 | default "app: sock-shop" }}
+    app: rabbitmq
 spec:
-  replicas: {{ .Values.replicaCount | default 1 }}
+  replicas: 1
   selector:
     matchLabels:
-      app: {{ basename $dir }}
+      app: rabbitmq
   template:
     metadata:
       labels:
-        app: {{ basename $dir }}
+        app: rabbitmq
     spec:
       containers:
-        - name: {{ basename $dir }}
+        - name: rabbitmq
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           ports:
             - containerPort: {{ .Values.service.targetPort }}

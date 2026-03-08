@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "shipping.fullname" . | default (basename $dir) }}
+  name: shipping
   labels:
-    {{- include "shipping.labels" . | nindent 4 | default "app: sock-shop" }}
+    app: shipping
 spec:
-  replicas: {{ .Values.replicaCount | default 1 }}
+  replicas: 1
   selector:
     matchLabels:
-      app: {{ basename $dir }}
+      app: shipping
   template:
     metadata:
       labels:
-        app: {{ basename $dir }}
+        app: shipping
     spec:
       containers:
-        - name: {{ basename $dir }}
+        - name: shipping
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           ports:
             - containerPort: {{ .Values.service.targetPort }}

@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "queue-master.fullname" . | default (basename $dir) }}
+  name: queue-master
   labels:
-    {{- include "queue-master.labels" . | nindent 4 | default "app: sock-shop" }}
+    app: queue-master
 spec:
-  replicas: {{ .Values.replicaCount | default 1 }}
+  replicas: 1
   selector:
     matchLabels:
-      app: {{ basename $dir }}
+      app: queue-master
   template:
     metadata:
       labels:
-        app: {{ basename $dir }}
+        app: queue-master
     spec:
       containers:
-        - name: {{ basename $dir }}
+        - name: queue-master
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           ports:
             - containerPort: {{ .Values.service.targetPort }}

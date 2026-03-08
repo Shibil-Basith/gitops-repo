@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "cart.fullname" . | default (basename $dir) }}
+  name: cart
   labels:
-    {{- include "cart.labels" . | nindent 4 | default "app: sock-shop" }}
+    app: cart
 spec:
-  replicas: {{ .Values.replicaCount | default 1 }}
+  replicas: 1
   selector:
     matchLabels:
-      app: {{ basename $dir }}
+      app: cart
   template:
     metadata:
       labels:
-        app: {{ basename $dir }}
+        app: cart
     spec:
       containers:
-        - name: {{ basename $dir }}
+        - name: cart
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           ports:
             - containerPort: {{ .Values.service.targetPort }}
