@@ -1,0 +1,68 @@
+replicaCount: 1
+
+image:
+  repository: rabbitmq
+  tag: "3.6.8-management"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  amqpPort: 5672
+  managementPort: 15672
+
+env:
+  - name: RABBITMQ_DEFAULT_USER
+    value: guest
+  - name: RABBITMQ_DEFAULT_PASS
+    valueFrom:
+      secretKeyRef:
+        name: rabbitmq-secret
+        key: password
+
+resources:
+  limits:
+    cpu: 300m
+    memory: 500Mi
+  requests:
+    cpu: 100m
+    memory: 200Mi
+
+securityContext:
+  capabilities:
+    drop:
+      - ALL
+    add:
+      - CHOWN
+      - SETGID
+      - SETUID
+      - DAC_OVERRIDE
+
+secret:
+  create: true
+  password: "guest"    # Override in production with sealed secrets
+
+livenessProbe:
+  exec:
+    command:
+      - rabbitmqctl
+      - status
+  initialDelaySeconds: 60
+  periodSeconds: 10
+
+readinessProbe:
+  exec:
+    command:
+      - rabbitmqctl
+      - status
+  initialDelaySeconds: 30
+  periodSeconds: 5
+
+persistence:
+  enabled: false
+  storageClass: ""
+  accessMode: ReadWriteOnce
+  size: 2Gi
+
+nodeSelector: {}
+tolerations: []
+affinity: {}

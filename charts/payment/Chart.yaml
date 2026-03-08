@@ -1,0 +1,10 @@
+apiVersion: v2
+name: payment
+description: Sock Shop Payment Service - Go
+type: application
+version: 0.1.0
+appVersion: "0.4.3"
+keywords:
+  - sock-shop
+maintainers:
+  - name: platform-team

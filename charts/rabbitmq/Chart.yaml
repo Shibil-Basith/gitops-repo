@@ -1,0 +1,10 @@
+apiVersion: v2
+name: rabbitmq
+description: Sock Shop RabbitMQ Message Broker
+type: application
+version: 0.1.0
+appVersion: "3.6.8"
+keywords:
+  - sock-shop
+maintainers:
+  - name: platform-team

@@ -1,0 +1,60 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: sock-shop
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: Sock Shop microservices demo project
+
+  # Source repositories allowed
+  sourceRepos:
+    - '*'  # Replace with your actual Git repo URL
+
+  # Destination clusters and namespaces allowed
+  destinations:
+    - namespace: sock-shop
+      server: https://kubernetes.default.svc
+    - namespace: argocd
+      server: https://kubernetes.default.svc
+
+  # Cluster resource whitelist
+  clusterResourceWhitelist:
+    - group: ''
+      kind: Namespace
+    - group: 'rbac.authorization.k8s.io'
+      kind: ClusterRole
+    - group: 'rbac.authorization.k8s.io'
+      kind: ClusterRoleBinding
+
+  # Namespace resource whitelist
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'
+
+  # Roles for project access
+  roles:
+    - name: developer
+      description: Developer access to sock-shop
+      policies:
+        - p, proj:sock-shop:developer, applications, get, sock-shop/*, allow
+        - p, proj:sock-shop:developer, applications, sync, sock-shop/*, allow
+      groups:
+        - sock-shop-developers
+
+    - name: admin
+      description: Admin access to sock-shop
+      policies:
+        - p, proj:sock-shop:admin, applications, *, sock-shop/*, allow
+      groups:
+        - sock-shop-admins
+
+  # Sync windows (optional - restrict when syncs can happen)
+  # syncWindows:
+  #   - kind: allow
+  #     schedule: '10 1 * * *'
+  #     duration: 1h
+  #     applications:
+  #       - '*'
+  #     manualSync: true

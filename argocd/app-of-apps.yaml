@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sock-shop-apps
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    app.kubernetes.io/name: sock-shop-apps
+    app.kubernetes.io/part-of: sock-shop
+spec:
+  project: sock-shop
+
+  source:
+    # IMPORTANT: Replace with your actual Git repo URL
+    repoURL: https://github.com/Shibil-Basith/gitops-repo.git
+    targetRevision: HEAD
+    path: apps   # Points to the apps/ directory containing all Application manifests
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+
+  syncPolicy:
+    automated:
+      prune: true       # Delete resources not in Git
+      selfHeal: true    # Auto-fix drift
+      allowEmpty: false
+    syncOptions:
+      - Validate=true
+      - CreateNamespace=true
+      - PrunePropagationPolicy=foreground
+      - PruneLast=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m

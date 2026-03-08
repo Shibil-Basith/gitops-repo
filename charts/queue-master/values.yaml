@@ -1,0 +1,57 @@
+replicaCount: 1
+
+image:
+  repository: weaveworksdemos/queue-master
+  tag: "0.3.1"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 80
+
+env:
+  - name: ZIPKIN
+    value: zipkin.jaeger.svc.cluster.local
+  - name: JAVA_OPTS
+    value: -Xms64m -Xmx128m -XX:+UseG1GC -Djava.security.egd=file:/dev/urandom
+
+resources:
+  limits:
+    cpu: 300m
+    memory: 500Mi
+  requests:
+    cpu: 100m
+    memory: 200Mi
+
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 10001
+  readOnlyRootFilesystem: false
+
+volumes:
+  - name: sock
+    hostPath:
+      path: /var/run/docker.sock
+
+volumeMounts:
+  - mountPath: /var/run/docker.sock
+    name: sock
+
+livenessProbe:
+  httpGet:
+    path: /health
+    port: 80
+  initialDelaySeconds: 60
+  periodSeconds: 10
+
+readinessProbe:
+  httpGet:
+    path: /health
+    port: 80
+  initialDelaySeconds: 30
+  periodSeconds: 5
+
+nodeSelector: {}
+tolerations: []
+affinity: {}

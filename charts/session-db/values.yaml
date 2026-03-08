@@ -1,0 +1,56 @@
+replicaCount: 1
+
+image:
+  repository: redis
+  tag: "alpine"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 6379
+  targetPort: 6379
+
+args:
+  - --appendonly
+  - "yes"
+
+resources:
+  limits:
+    cpu: 200m
+    memory: 200Mi
+  requests:
+    cpu: 100m
+    memory: 64Mi
+
+securityContext:
+  capabilities:
+    drop:
+      - ALL
+    add:
+      - CHOWN
+      - SETGID
+      - SETUID
+
+livenessProbe:
+  tcpSocket:
+    port: 6379
+  initialDelaySeconds: 15
+  periodSeconds: 10
+
+readinessProbe:
+  exec:
+    command:
+      - redis-cli
+      - ping
+  initialDelaySeconds: 5
+  periodSeconds: 5
+
+persistence:
+  enabled: false
+  storageClass: ""
+  accessMode: ReadWriteOnce
+  size: 1Gi
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
