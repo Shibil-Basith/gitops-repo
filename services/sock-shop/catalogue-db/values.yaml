@@ -1,0 +1,12 @@
+image:
+  repository: mongo
+  tag: "3.4"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 27017
+
+# Custom for Front-end access
+nodePort: 30001
