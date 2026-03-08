@@ -7,6 +7,6 @@ spec:
   selector:
     app: api
   ports:
-  - port: 8000
-    targetPort: 8000
-    nodePort: {{ .Values.service.nodePort }}
+  - port: 8000      # Cluster internal port
+    targetPort: 8000 # Must match containerPort and ENV PORT
+    nodePort: {{ .Values.service.nodePort }} # Will be 30002
