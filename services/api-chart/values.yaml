@@ -1,6 +1,6 @@
 image:
   repository: tiangolo/uvicorn-gunicorn-fastapi
-  tag: latest
+  tag: "python3.11-2024-11-02"
 
 service:
   type: NodePort
